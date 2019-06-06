@@ -1,8 +1,8 @@
 import React from 'react';
-import Test from './components/test/Test';
+import PlayersFinders from './components/playerFinder/PlayersFinders';
 
 const App = () => (
-  <Test />
+  <PlayersFinders />
 );
 
 export default App;
