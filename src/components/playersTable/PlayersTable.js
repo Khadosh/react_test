@@ -3,19 +3,27 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchData } from './redux/PlayersTable.actions';
-import { getPlayers } from './redux/PlayersTable.selectors';
+import { makeGetPlayersByFilters } from './redux/PlayersTable.selectors';
 import { calculateAge} from '../../helpers/dateHelper';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-const mapStateToProps = (store, props) => ({
-  players: getPlayers(store, props)
-});
+import './playersTable.scss';
+
+const makeMapStateToProps = () => {
+  const getPlayersByFilters = makeGetPlayersByFilters();
+  const mapStateToProps = (state, props) => {
+    return {
+      players: getPlayersByFilters(state, props)
+    }
+  }
+  return mapStateToProps
+};
 
 const mapDispatchToProps = {
   fetchData
@@ -25,13 +33,29 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     marginTop: theme.spacing(3),
-    overflow: 'auto',
-    maxHeight: 500
+    overflow: 'auto'
   },
   table: {
-    minWidth: 650
+    minWidth: 450
+  },
+  tableHead: {
+    backgroundColor: theme.palette.common.black,
+  },
+  tableCell: {
+    color: theme.palette.common.white,
   },
 }));
+
+const StyledTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
 
 const PlayersTable = ({ players, fetchData }) => {
   const [ fetchingData, setFetchingData ] = useState(false);
@@ -43,42 +67,34 @@ const PlayersTable = ({ players, fetchData }) => {
     setFetchingData(false);
   }
 
-  useEffect(() => {
-    fetchPlayers()
-  }, []);
+  useEffect(fetchPlayers, []);
 
   return (
-    <div>
-     {
-       fetchingData
-        ? 'loading'
-        : (
-          <Table className={classes.table}>
-            <TableHead>
-              <TableRow>
-                <TableCell>Player</TableCell>
-                <TableCell>Position</TableCell>
-                <TableCell>Nationality</TableCell>
-                <TableCell>Age</TableCell>
-              </TableRow>
+    <div className="players-table">
+      {!fetchingData && (
+        <Table className={classes.table}>
+          <TableHead className={classes.tableHead}>
+            <TableRow>
+              <StyledTableCell>Player</StyledTableCell>
+              <StyledTableCell>Position</StyledTableCell>
+              <StyledTableCell>Nationality</StyledTableCell>
+              <StyledTableCell>Age</StyledTableCell>
+            </TableRow>
           </TableHead>
           <TableBody>
-            {
-              players.map(player => (
-                <TableRow key={player.jerseyNumber}>
-                  <TableCell>{player.name}</TableCell>
-                  <TableCell>{player.position}</TableCell>
-                  <TableCell>{player.nationality}</TableCell>
-                  <TableCell>{calculateAge(player.dateOfBirth)}</TableCell>
-                </TableRow>
-              ))
-            }
+          {players.map(player => (
+            <TableRow key={player.jerseyNumber}>
+              <TableCell>{player.name}</TableCell>
+              <TableCell>{player.position}</TableCell>
+              <TableCell>{player.nationality}</TableCell>
+              <TableCell>{calculateAge(player.dateOfBirth)}</TableCell>
+            </TableRow>
+          ))}
           </TableBody>
         </Table>
-        )
-     }
-     </div>
+      )}
+    </div>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayersTable);
+export default connect(makeMapStateToProps, mapDispatchToProps)(PlayersTable);

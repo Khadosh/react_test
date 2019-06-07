@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -14,11 +15,20 @@ const useStyles = makeStyles(theme => ({
     width: 200
   },
   menu: {
-    width: 200,
+    width: 200
   },
+  button: {
+    margin: theme.spacing(1),
+    marginTop: theme.spacing(3),
+    backgroundColor: "#2196f3"
+  },
+  input: {
+    display: 'none'
+  }
 }));
 
 const positions = [
+  '',
   'Attacking Midfield',
   'Central Midfield',
   'Centre-Back',
@@ -41,7 +51,7 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
     evt.preventDefault();
     setName(formName);
     setPosition(formPosition);
-    setAge(26);
+    setAge(formAge);
   }
 
   return (
@@ -54,6 +64,7 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
         onChange={evt => setFormName(evt.target.value)}
         margin="normal"
       />
+
       <TextField
         id="select-position"
         select
@@ -74,6 +85,25 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
           </MenuItem>
         ))}
       </TextField>
+
+      <TextField
+        id="Age"
+        label="Age"
+        type="Number"
+        className={classes.textField}
+        value={formAge}
+        onChange={evt => setFormAge(evt.target.value)}
+        margin="normal"
+      />
+
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        className={classes.button}
+      >
+        Submit
+      </Button>
     </form>
   )
 }

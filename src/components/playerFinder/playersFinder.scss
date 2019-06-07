@@ -1,14 +1,9 @@
 .players-finders {
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
 
   h1 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     letter-spacing: 3px;
-  }
-
-  .players-finders__table {
-    max-height: 600px;
-    overflow: auto;
   }
 }
