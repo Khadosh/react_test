@@ -56,7 +56,7 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
 
   const handleSetName = evt => {
     const value = evt.target.value;
-    if (!(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?0-9]$/gi).test(value)) {
+    if ((/^[A-Za-z]+$/gi).test(value)) {
       setFormName(evt.target.value)
     }
   }
