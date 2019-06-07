@@ -35,19 +35,19 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
   const classes = useStyles();
   const [ formName, setFormName] = useState('');
   const [ formPosition, setFormPosition] = useState('');
-  const [ formAge, setFormAge] = useState(null);
+  const [ formAge, setFormAge] = useState('');
 
   const handleOnSubmit = evt => {
     evt.preventDefault();
     setName(formName);
     setPosition(formPosition);
-    //setAge(formAge);
+    setAge(26);
   }
 
   return (
     <form onSubmit={ handleOnSubmit }>
       <TextField
-        id="standard-name"
+        id="name"
         label="Name"
         className={classes.textField}
         value={formName}
@@ -55,7 +55,7 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
         margin="normal"
       />
       <TextField
-        id="standard-select-position"
+        id="select-position"
         select
         label="Position"
         className={classes.textField}
@@ -74,18 +74,6 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
           </MenuItem>
         ))}
       </TextField>
-      <TextField
-        id="standard-number"
-        label="Age"
-        value={ formAge }
-        onChange={ evt => setFormAge(evt.target.value) }
-        type="number"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true
-        }}
-        margin="normal"
-      />
     </form>
   )
 }
