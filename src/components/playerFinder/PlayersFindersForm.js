@@ -54,6 +54,13 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
     setAge(formAge);
   }
 
+  const handleSetName = evt => {
+    const value = evt.target.value;
+    if (!(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?0-9]$/gi).test(value)) {
+      setFormName(evt.target.value)
+    }
+  }
+
   return (
     <form onSubmit={ handleOnSubmit }>
       <TextField
@@ -61,8 +68,9 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
         label="Name"
         className={classes.textField}
         value={formName}
-        onChange={evt => setFormName(evt.target.value)}
+        onChange={handleSetName}
         margin="normal"
+        pattern="[A-Za-z]+"
       />
 
       <TextField

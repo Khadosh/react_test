@@ -2,26 +2,38 @@ import intersection from 'array-intersection';
 import { calculateAge} from '../../../helpers/dateHelper';
 import { createSelector } from 'reselect';
 
-export const getAllPlayers = (store) => store.PlayersTable.players;
+export const getAllPlayers = (store, filters) => [store.PlayersTable.players, filters];
 
-export const getPlayersByName = (store, props) =>
-  getAllPlayers(store)
-    .filter(player => player.name.toLowerCase().includes(props.name.toLowerCase()));
+export const getSortBy = (store, filters) => filters.sortBy;
 
-export const getPlayersByPosition = (store, props) =>
-  getAllPlayers(store, props)
-    .filter(player => player.position.includes(props.position));
+export const getPlayersByName = createSelector(
+  [getAllPlayers],
+  ([allPlayers, filters]) => allPlayers.filter(player => player.name.toLowerCase().includes(filters.name.toLowerCase())));
 
-export const getPlayersByAge = (store, props) =>
-  getAllPlayers(store, props)
-    .filter(player => props.age > 0
-      ? calculateAge(player.dateOfBirth) === parseInt(props.age)
+export const getPlayersByPosition = createSelector(
+  [getAllPlayers],
+  ([allPlayers, filters]) => allPlayers.filter(player => player.position.includes(filters.position)));
+
+export const getPlayersByAge = createSelector(
+  [getAllPlayers],
+  ([allPlayers, filters]) => allPlayers.filter(
+    player => filters.age > 0
+      ? calculateAge(player.dateOfBirth) === parseInt(filters.age)
       : calculateAge(player.dateOfBirth) > 0
-    );
+  ));
 
-export const makeGetPlayersByFilters = () => {
-  return createSelector(
-    [getPlayersByAge, getPlayersByName, getPlayersByPosition],
-    (playersByAge, playersByName, playersByPostion) => intersection(playersByAge, playersByName, playersByPostion)
-  )
-}
+export const getPlayersByFilters = createSelector(
+  [getSortBy, getPlayersByAge, getPlayersByName, getPlayersByPosition],
+  (sortBy, playersByAge, playersByName, playersByPostion) =>
+    [intersection(playersByAge, playersByName, playersByPostion), sortBy]
+);
+
+const makeGetSortedPlayersByFilters = () => createSelector(
+  [getPlayersByFilters],
+  ([players, sortBy]) => players.sort((a, b) => {
+    if(a[sortBy] < b[sortBy]) return -1;
+    if(a[sortBy] > b[sortBy]) return 1;
+    return 0;
+  }));
+
+export default makeGetSortedPlayersByFilters;

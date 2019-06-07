@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchData } from './redux/PlayersTable.actions';
-import { makeGetPlayersByFilters } from './redux/PlayersTable.selectors';
+import makeGetSortedPlayersByFilters from './redux/PlayersTable.selectors';
 import { calculateAge} from '../../helpers/dateHelper';
 
 import { withStyles, makeStyles } from '@material-ui/core/styles';
@@ -16,7 +16,7 @@ import TableRow from '@material-ui/core/TableRow';
 import './playersTable.scss';
 
 const makeMapStateToProps = () => {
-  const getPlayersByFilters = makeGetPlayersByFilters();
+  const getPlayersByFilters = makeGetSortedPlayersByFilters();
   const mapStateToProps = (state, props) => {
     return {
       players: getPlayersByFilters(state, props)
@@ -57,7 +57,7 @@ const StyledTableCell = withStyles(theme => ({
 }))(TableCell);
 
 
-const PlayersTable = ({ players, fetchData }) => {
+const PlayersTable = ({ players, fetchData, setSortBy }) => {
   const [ fetchingData, setFetchingData ] = useState(false);
   const classes = useStyles();
 
@@ -75,10 +75,10 @@ const PlayersTable = ({ players, fetchData }) => {
         <Table className={classes.table}>
           <TableHead className={classes.tableHead}>
             <TableRow>
-              <StyledTableCell>Player</StyledTableCell>
-              <StyledTableCell>Position</StyledTableCell>
-              <StyledTableCell>Nationality</StyledTableCell>
-              <StyledTableCell>Age</StyledTableCell>
+              <StyledTableCell onClick={ () => setSortBy('name') }>Player</StyledTableCell>
+              <StyledTableCell onClick={ () => setSortBy('position') }>Position</StyledTableCell>
+              <StyledTableCell onClick={ () => setSortBy('nationality') }>Nationality</StyledTableCell>
+              <StyledTableCell onClick={ () => setSortBy('age') }>Age</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

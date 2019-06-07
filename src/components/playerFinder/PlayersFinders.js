@@ -7,13 +7,14 @@ const PlayersFinders = () => {
   const [name, setName] = useState('');
   const [position, setPosition] = useState('');
   const [age, setAge] = useState(0);
+  const [sortBy, setSortBy] = useState('');
 
   return (
     <div className="players-finders">
-      <h1>Players Finder</h1>
+      <h1>Football Player Finder</h1>
       <div className="players-finders__table">
         <PlayersFinderForm { ...{setName, setPosition, setAge} } />
-        <PlayersTable { ...{ name, position, age } }/>
+        <PlayersTable { ...{ name, position, age, sortBy, setSortBy } }/>
       </div>
     </div>
   );
