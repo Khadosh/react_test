@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.0.0-rc.0",
+    "@material-ui/icons": "^4.0.1",
     "array-intersection": "^0.1.2",
     "axios": "^0.19.0",
     "moment": "^2.24.0",

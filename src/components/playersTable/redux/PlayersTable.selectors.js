@@ -4,7 +4,10 @@ import { createSelector } from 'reselect';
 
 export const getAllPlayers = (store, filters) => [store.PlayersTable.players, filters];
 
-export const getSortBy = (store, filters) => filters.sortBy;
+export const getSortBy = (store, filters) => ({
+  sortBy: filters.sortBy,
+  sortOrder: filters.sortOrder
+});
 
 export const getPlayersByName = createSelector(
   [getAllPlayers],
@@ -30,10 +33,13 @@ export const getPlayersByFilters = createSelector(
 
 const makeGetSortedPlayersByFilters = () => createSelector(
   [getPlayersByFilters],
-  ([players, sortBy]) => players.sort((a, b) => {
-    if(a[sortBy] < b[sortBy]) return -1;
-    if(a[sortBy] > b[sortBy]) return 1;
-    return 0;
+  ([players, sort]) => players.sort((a, b) => {
+    const isDesc = sort.sortOrder === 'desc';
+    let sortOrder = 0;
+    if(a[sort.sortBy] < b[sort.sortBy]) sortOrder = isDesc ? -1 : 1;
+    if(a[sort.sortBy] > b[sort.sortBy]) sortOrder = isDesc ? 1 : -1;
+
+    return sort.sortBy === 'dateOfBirth' ? sortOrder * -1 : sortOrder;
   }));
 
 export default makeGetSortedPlayersByFilters;

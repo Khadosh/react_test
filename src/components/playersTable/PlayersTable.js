@@ -1,33 +1,15 @@
 /*eslint react-hooks/exhaustive-deps:off*/
 
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { fetchData } from './redux/PlayersTable.actions';
-import makeGetSortedPlayersByFilters from './redux/PlayersTable.selectors';
-import { calculateAge} from '../../helpers/dateHelper';
-
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
+import { calculateAge} from '../../helpers/dateHelper';
+import { headers, StyledTableCell, Arrow } from './PlayersTableHeaders';
 import './playersTable.scss';
-
-const makeMapStateToProps = () => {
-  const getPlayersByFilters = makeGetSortedPlayersByFilters();
-  const mapStateToProps = (state, props) => {
-    return {
-      players: getPlayersByFilters(state, props)
-    }
-  }
-  return mapStateToProps
-};
-
-const mapDispatchToProps = {
-  fetchData
-};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,18 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const StyledTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-
-const PlayersTable = ({ players, fetchData, setSortBy }) => {
+const PlayersTable = ({ players, fetchData, handleSorting, sortBy, sortOrder }) => {
   const [ fetchingData, setFetchingData ] = useState(false);
   const classes = useStyles();
 
@@ -75,10 +46,14 @@ const PlayersTable = ({ players, fetchData, setSortBy }) => {
         <Table className={classes.table}>
           <TableHead className={classes.tableHead}>
             <TableRow>
-              <StyledTableCell onClick={ () => setSortBy('name') }>Player</StyledTableCell>
-              <StyledTableCell onClick={ () => setSortBy('position') }>Position</StyledTableCell>
-              <StyledTableCell onClick={ () => setSortBy('nationality') }>Nationality</StyledTableCell>
-              <StyledTableCell onClick={ () => setSortBy('age') }>Age</StyledTableCell>
+              {
+                headers.map(header => (
+                  <StyledTableCell key={header.label} onClick={ () => handleSorting(header.sortBy) }>
+                    <Arrow { ...{ sortOrder, isActive: sortBy === header.sortBy } }/>
+                    {header.label}
+                  </StyledTableCell>
+                ))
+              }
             </TableRow>
           </TableHead>
           <TableBody>
@@ -97,4 +72,4 @@ const PlayersTable = ({ players, fetchData, setSortBy }) => {
   );
 };
 
-export default connect(makeMapStateToProps, mapDispatchToProps)(PlayersTable);
+export default PlayersTable;

@@ -2,4 +2,11 @@
   max-height: 600px;
   overflow: auto;
   box-shadow: 1px 1px 3px lightgray;
+
+  .players-table__arrow-container {
+    height: 16px;
+    width: 16px;
+    float: left;
+    margin-right: 5px;
+  }
 }
