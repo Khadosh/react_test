@@ -33,13 +33,18 @@ export const getPlayersByFilters = createSelector(
 
 const makeGetSortedPlayersByFilters = () => createSelector(
   [getPlayersByFilters],
-  ([players, sort]) => players.sort((a, b) => {
+  ([players, sort]) => players.sort((currentPlayer, nextPlayer) => {
     const isDesc = sort.sortOrder === 'desc';
+    const isDate = sort.sortBy === 'dateOfBirth';
     let sortOrder = 0;
-    if(a[sort.sortBy] < b[sort.sortBy]) sortOrder = isDesc ? -1 : 1;
-    if(a[sort.sortBy] > b[sort.sortBy]) sortOrder = isDesc ? 1 : -1;
 
-    return sort.sortBy === 'dateOfBirth' ? sortOrder * -1 : sortOrder;
+    if (currentPlayer[sort.sortBy] < nextPlayer[sort.sortBy]) sortOrder = -1;
+    if (currentPlayer[sort.sortBy] > nextPlayer[sort.sortBy]) sortOrder = 1;
+
+    if (isDesc) sortOrder *= -1;
+    if (isDate) sortOrder *= -1;
+
+    return sortOrder;
   }));
 
 export default makeGetSortedPlayersByFilters;
