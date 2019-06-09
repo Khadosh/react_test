@@ -25,7 +25,7 @@ const PlayersTable = ({ players, fetchData, handleSorting, sortBy, sortOrder }) 
   const classes = useStyles();
 
   const fetchPlayers = async () => {
-    try {
+      try {
       await fetchData();
       setErrorMessage(false);
     }
@@ -37,9 +37,11 @@ const PlayersTable = ({ players, fetchData, handleSorting, sortBy, sortOrder }) 
   const closeSnackbar = () => setErrorMessage('');
 
   useEffect(() => {
+    const ac = new AbortController();
     setFetchingData(true);
     fetchPlayers();
     setFetchingData(false);
+    return () => ac.abort();
   }, []);
 
   return (
