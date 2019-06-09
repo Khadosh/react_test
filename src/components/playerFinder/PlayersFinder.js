@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import PlayersFinderForm from './PlayersFindersForm';
+import PlayersFinderForm from './playersFinderForm/PlayersFinderForm';
 import PlayersTable from './playersTable/PlayersTableReduxConnector';
 
-const PlayersFinders = () => {
+const PlayersFinder = () => {
   const [name, setName] = useState('');
   const [position, setPosition] = useState('');
   const [age, setAge] = useState(0);
   const [sortBy, setSortBy] = useState('name');
   const [sortOrder, setSortOrder] = useState('desc');
 
-    const handleSorting = sortType => {
+  const handleSorting = sortType => {
     const order = (sortType === sortBy && sortOrder === 'desc')
       ? 'asc'
       : 'desc';
@@ -35,4 +35,4 @@ const PlayersFinders = () => {
   );
 }
 
-export default PlayersFinders;
+export default PlayersFinder;

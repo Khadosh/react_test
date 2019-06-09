@@ -15,6 +15,6 @@ describe('Footer Suite', () => {
   });
   it('Footer text should match', () => {
     const footer = component.find('footer');
-    expect(footer.contains('Intive-FDV | React Test by Joaquín Nader.')).toBe(true);
+    expect(footer.text()).toBe('Intive-FDV | React Test by Joaquín Nader.');
   })
 });

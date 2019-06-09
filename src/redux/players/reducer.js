@@ -1,4 +1,4 @@
-import { FETCH_PLAYERS, FETCH_PLAYERS_SUCCESS, FETCH_PLAYERS_FAILURE } from './PlayersTable.constants';
+import { FETCH_PLAYERS, FETCH_PLAYERS_SUCCESS, FETCH_PLAYERS_FAILURE } from './constants';
 
 const initialState = {
   fetchingPlayers: false,

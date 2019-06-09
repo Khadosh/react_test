@@ -1,8 +1,8 @@
 import intersection from 'array-intersection';
-import { calculateAge} from '../../../../helpers/dateHelper';
+import { calculateAge} from '../../helpers/dateHelper';
 import { createSelector } from 'reselect';
 
-export const getAllPlayers = (store, filters) => [store.PlayersTable.players, filters];
+export const getAllPlayers = (store, filters) => [store.Players.players, filters];
 
 export const getSortBy = (store, filters) => ({
   sortBy: filters.sortBy,

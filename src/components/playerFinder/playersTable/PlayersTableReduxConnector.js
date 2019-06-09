@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { fetchData } from './redux/PlayersTable.actions';
-import makeGetSortedPlayersByFilters from './redux/PlayersTable.selectors';
+import { fetchData } from '../../../redux/players/actions';
+import makeGetSortedPlayersByFilters from '../../../redux/players/selectors';
 import PlayersTable from './PlayersTable';
 
 const makeMapStateToProps = () => {

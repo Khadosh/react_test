@@ -15,6 +15,6 @@ describe('Header Suite', () => {
   });
   it('Title should be << Football Player Finder >>', () => {
     const header = component.find('h1');
-    expect(header.contains('Football Player Finder')).toBe(true);
+    expect(header.text()).toBe('Football Player Finder');
   })
 });

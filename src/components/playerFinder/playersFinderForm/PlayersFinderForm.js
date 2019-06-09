@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { func } from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -64,7 +65,7 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
   return (
     <form onSubmit={ handleOnSubmit }>
       <TextField
-        id="name"
+        id="input-name"
         label="Name"
         className={classes.textField}
         value={formName}
@@ -95,7 +96,7 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
       </TextField>
 
       <TextField
-        id="Age"
+        id="input-ge"
         label="Age"
         type="Number"
         className={classes.textField}
@@ -114,6 +115,12 @@ const PlayersFinderForm = ({ setName, setPosition, setAge }) => {
       </Button>
     </form>
   )
+}
+
+PlayersFinderForm.propTypes = {
+  setName: func.isRequired,
+  setPosition: func.isRequired,
+  setAge: func.isRequired
 }
 
 export default PlayersFinderForm;

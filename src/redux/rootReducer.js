@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import PlayersTable from '../components/playerFinder/playersTable/redux/PlayersTable.reducer';
+import Players from './players/reducer';
 
 const rootReducer = combineReducers({
-  PlayersTable
+  Players
 });
 
 export default rootReducer;
