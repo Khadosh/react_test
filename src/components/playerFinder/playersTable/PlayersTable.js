@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { headers, StyledTableCell, Arrow } from './PlayersTableHeaders';
-import { calculateAge} from '../../helpers/dateHelper';
+import { calculateAge} from '../../../helpers/dateHelper';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';

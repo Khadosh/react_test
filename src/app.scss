@@ -1,0 +1,27 @@
+body {
+  max-height: 100vw;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  height: 100vh;
+  max-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    height: 100px;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  footer {
+    height: 50px;
+  }
+}

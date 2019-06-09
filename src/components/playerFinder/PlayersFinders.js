@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PlayersFinderForm from './PlayersFindersForm';
-import PlayersTable from '../playersTable/PlayersTableReduxConnector';
-import './playersFinder.scss';
+import PlayersTable from './playersTable/PlayersTableReduxConnector';
 
 const PlayersFinders = () => {
   const [name, setName] = useState('');
@@ -19,22 +18,19 @@ const PlayersFinders = () => {
   }
 
   return (
-    <div className="players-finders">
-      <h1>Football Player Finder</h1>
-      <div className="players-finders__table">
-        <PlayersFinderForm { ...{setName, setPosition, setAge} } />
-        < PlayersTable {
-          ...{
-            name,
-            position,
-            age,
-            sortBy,
-            handleSorting,
-            sortOrder
-          }
+    <div className="players-finders__table">
+      <PlayersFinderForm { ...{setName, setPosition, setAge} } />
+      <PlayersTable {
+        ...{
+          name,
+          position,
+          age,
+          sortBy,
+          handleSorting,
+          sortOrder
         }
-        />
-      </div>
+      }
+      />
     </div>
   );
 }
