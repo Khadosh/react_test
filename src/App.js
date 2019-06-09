@@ -1,14 +1,14 @@
 import React from 'react';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import PlayersFinders from './components/playerFinder/PlayersFinders';
+import PlayersFinder from './components/playerFinder/PlayersFinder';
 import './app.scss';
 
 const App = () => (
   <div className="app">
     <Header />
     <main>
-      <PlayersFinders />
+      <PlayersFinder />
     </main>
     <Footer />
   </div>
