@@ -24,6 +24,6 @@ export default makeStyles(theme => ({
   errorIcon: {
     fontSize: 20,
     opacity: 0.9,
-    margin: `0 ${theme.spacing(1)}px -${theme.spacing(1)/2}px 0`,
+    margin: `0 ${theme.spacing(1)}px -${theme.spacing(1/2)}px 0`,
   }
 }));

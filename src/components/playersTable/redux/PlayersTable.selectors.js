@@ -38,8 +38,8 @@ const makeGetSortedPlayersByFilters = () => createSelector(
     const isDate = sort.sortBy === 'dateOfBirth';
     let sortOrder = 0;
 
-    if (currentPlayer[sort.sortBy] < nextPlayer[sort.sortBy]) sortOrder = -1;
-    if (currentPlayer[sort.sortBy] > nextPlayer[sort.sortBy]) sortOrder = 1;
+    if (currentPlayer[sort.sortBy] < nextPlayer[sort.sortBy]) sortOrder = 1;
+    if (currentPlayer[sort.sortBy] > nextPlayer[sort.sortBy]) sortOrder = -1;
 
     if (isDesc) sortOrder *= -1;
     if (isDate) sortOrder *= -1;
