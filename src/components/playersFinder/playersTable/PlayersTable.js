@@ -21,12 +21,11 @@ const fetchPlayers = async (fetchData, setFetchingData, setErrorMessage, signal)
   setFetchingData(true);
   try {
     await fetch(fetchData(), signal);
-    setFetchingData(false);
     setErrorMessage('');
   } catch (err) {
-    setFetchingData(false);
     setErrorMessage('Something went wrong retrieving players information');
   }
+  setFetchingData(false);
 }
 
 class PlayersTable extends PureComponent {
