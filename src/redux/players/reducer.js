@@ -9,13 +9,13 @@ const TestReducer = (state = initialState, action) => {
   switch(action.type) {
 
     case FETCH_PLAYERS:
-      return { ...state, fetchigPlayers: true };
+      return { ...state, fetchingPlayers: true };
 
     case FETCH_PLAYERS_SUCCESS:
-      return { ...state, players: action.payload, fetchigPlayers: false };
+      return { ...state, players: action.payload, fetchingPlayers: false };
 
     case FETCH_PLAYERS_FAILURE:
-      return { ...state, players: [], fetchigPlayers: false };
+      return { ...state, players: [], fetchingPlayers: false };
 
     default:
       return state;
