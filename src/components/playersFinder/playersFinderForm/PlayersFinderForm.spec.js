@@ -30,11 +30,9 @@ describe('PlayersFinderForm Suite', () => {
       const playersFinderTextFields = component.find(TextField);
       expect(playersFinderTextFields.length).toBe(3);
     });
-
-
   });
 
-  describe('internalMethods', ()=>{
+  describe('internalMethods', ()=> {
     it('setValue should update component state', () => {
       const PlayersFinderInstance = component.instance();
       PlayersFinderInstance.setValue('formName', 'test');
