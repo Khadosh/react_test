@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import PlayersFinder from './PlayersFinder';
+import PlayersFinderForm from './playersFinderForm/PlayersFinderForm';
+import PlayersTable from './playersTable/PlayersTableReduxConnector';
 
 const setup = () => shallow(<PlayersFinder />);
 
@@ -16,11 +18,11 @@ describe('PlayersFinder Suite', () => {
       expect(playersFinder.length).toBe(1);
     });
     it('PlayersFinder should render PlayersFinderForm', () => {
-      const playersFinderForm = component.find('PlayersFinderForm');
+      const playersFinderForm = component.find(PlayersFinderForm);
       expect(playersFinderForm.length).toBe(1);
     });
     it('PlayersFinder should render PlayersTable', () => {
-      const playersTable = component.find('Connect(PlayersTable)');
+      const playersTable = component.find(PlayersTable);
       expect(playersTable.length).toBe(1);
     });
   });

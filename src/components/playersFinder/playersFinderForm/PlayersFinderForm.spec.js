@@ -11,7 +11,7 @@ const initialProps = {
 
 const setup = ( props = initialProps ) => {
   const mergedProps = { ...props, ...initialProps };
-  return shallow(<PlayersFinderForm { ...mergedProps } />);
+  return shallow(<PlayersFinderForm { ...mergedProps } />).dive();
 }
 
 let component;
