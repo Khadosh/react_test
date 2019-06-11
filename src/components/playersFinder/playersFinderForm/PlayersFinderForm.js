@@ -104,7 +104,7 @@ class PlayersFinderForm extends PureComponent {
         </TextField>
 
         <TextField
-          id="input-ge"
+          id="input-age"
           label="Age"
           type="Number"
           className={classes.textField}

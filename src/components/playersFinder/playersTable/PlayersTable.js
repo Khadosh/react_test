@@ -17,10 +17,10 @@ import ErrorSnackbar from '../../utils/ErrorSnackbar';
 import Styles from './PlayersTable.styles.js';
 import './playersTable.scss';
 
-const fetchPlayers = async (fetchData, setFetchingData, setErrorMessage) => {
-  setFetchingData(true)
+const fetchPlayers = async (fetchData, setFetchingData, setErrorMessage, signal) => {
+  setFetchingData(true);
   try {
-    await fetchData();
+    await fetch(fetchData(), signal);
     setFetchingData(false);
     setErrorMessage('');
   } catch (err) {
@@ -30,6 +30,8 @@ const fetchPlayers = async (fetchData, setFetchingData, setErrorMessage) => {
 }
 
 class PlayersTable extends PureComponent {
+  abortController = new AbortController();
+
   state = {
     fetchingData: false,
     errorMessage: ''
@@ -39,9 +41,14 @@ class PlayersTable extends PureComponent {
     fetchPlayers(
       this.props.fetchData,
       isFetching => this.setState({ fetchingData: isFetching }),
-      errorMessage => this.setState({ errorMessage })
+      errorMessage => this.setState({ errorMessage }),
+      this.abortController.signal
     );
   };
+
+  componentWillUnmount = () => {
+    this.abortController.abort();
+  }
 
   closeSnackbar = () => this.setState({ errorMessage: '' })
 
