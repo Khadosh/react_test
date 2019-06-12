@@ -1,5 +1,9 @@
 {
-  "name": "sabre",
+  "name": "football-player-finder",
+  "author": {
+    "name": "Joaquín Nader",
+    "email": "joaquinnader@gmail.com"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {

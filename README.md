@@ -1,6 +1,7 @@
-## PlayersTable
+## Football Player Finder
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a test for Intive-FDV by Joaquín Nader.
 
 ## Available Scripts
 
@@ -18,6 +19,11 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm getCoverage`
+
+Launches the test runner in coverage mode.<br>
+Coverage can be found on coverage folder after running this command.
 
 ### `npm run build`
 
