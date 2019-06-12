@@ -1,10 +1,10 @@
-import { FETCH_PLAYERS, FETCH_PLAYERS_SUCCESS, FETCH_PLAYERS_FAILURE } from './constants';
+import { FETCH_PLAYERS, FETCH_PLAYERS_SUCCESS } from '../constants';
+import { fetchData } from '../actions';
 import axios from 'axios';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
-import { mockMessageBuilder } from 'helpers/testHelper';
-import { fetchEntitiesByPayee } from './EntityActions';
+import mockData from './mockData';
 
 const mockStore = configureStore([thunk]);
 const store = mockStore();
@@ -14,17 +14,17 @@ const requestMock = {
 let sinonSandbox = sinon.createSandbox();
 let helperGet = sinonSandbox.stub(axios, 'get');
 
-describe('Redux entity actions', () => {
+describe('actions suite', () => {
   afterEach(() => {
     store.clearActions();
     requestMock.get.reset();
     sinonSandbox.reset();
   });
 
-  test('sucessfully fetch entities by Payee', () => {
+  test('sucessfully fetchData for players', () => {
     const message = {
       data: {
-        data: [{ M: 1 }, { I: 2 }, { D: 3 }]
+        mockData
       }
     };
     const expectedActions = [
@@ -33,18 +33,19 @@ describe('Redux entity actions', () => {
       },
       {
         type: FETCH_PLAYERS_SUCCESS,
-        entities: [{ M: 1 }, { I: 2 }, { D: 3 }]
+        payload: mockData
       }
     ];
-    const searchText = 123;
-    mockMessageBuilder(message, true, helperGet, requestMock.get);
 
-    store.dispatch(fetchEntitiesByPayee(searchText));
+    helperGet.returns(new Promise(resolve => resolve(message)));
+    requestMock.get.returns(helperGet);
+
+    store.dispatch(fetchData());
 
     return Promise.resolve(requestMock).then(() => {
-      expect(store.getActions()[1]).toEqual(expectedActions[0]);
+      expect(store.getActions()[0]).toEqual(expectedActions[0]);
       expect(helperGet.calledOnce).toBe(true);
-      expect(helperGet.args[0][0]).toBe('/entities/search?id=123');
+      expect(helperGet.args[0][0]).toBe('https://football-players-b31f2.firebaseio.com/players.json');
     });
   });
 });

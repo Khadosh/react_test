@@ -119,7 +119,7 @@ class PlayersFinderForm extends PureComponent {
           color="primary"
           className={classes.button}
         >
-          Submit
+          Search
         </Button>
       </form>
     );
