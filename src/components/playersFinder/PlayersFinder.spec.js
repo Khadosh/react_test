@@ -7,7 +7,7 @@ import PlayersTable from './playersTable/PlayersTableReduxConnector';
 const setup = () => shallow(<PlayersFinder />);
 
 let component;
-describe('PlayersFinder Suite', () => {
+describe('PlayersFinder Suite - test', () => {
   beforeEach(() => {
     component = setup();
   });
